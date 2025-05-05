@@ -29,8 +29,8 @@ namespace MauiAppWeatherNow.Services
                     var rascunho = JObject.Parse(json);
 
                     DateTime time = new();
-                    DateTime rise = time.AddSeconds().ToLocaltime();
-                    DateTime set = time.AddSeconds().ToLocaltime();
+                    DateTime rise = time.AddSeconds((double)rascunho["sys"]["sunrise"]).ToLocalTime();
+                    DateTime set = time.AddSeconds((double)rascunho["sys"]["sunset"]).ToLocalTime();
 
                     t = new()
                     {
@@ -41,8 +41,8 @@ namespace MauiAppWeatherNow.Services
                         temp_min = (double)rascunho["main"]["temp_min"],
                         temp_max = (double)rascunho["main"]["temp_min"],
                         speed = (double)rascunho["wind"]["speed"],
-                        sunrise = (string)rascunho["sys"]["sunrise"],
-                        sunset = (string)rascunho["sys"]["sunrise"],
+                        sunrise = rise.ToString(),
+                        sunset = set.ToString(),
                         visibility= (int)rascunho["visibility"]
                     };
                 }
